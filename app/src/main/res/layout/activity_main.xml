@@ -37,49 +37,51 @@
 
         <com.beeproductive.android.LogoTextView
             android:id="@+id/logo"
-            android:layout_width="wrap_content"
+            android:layout_width="362dp"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/libre_baskerville_regular"
-            android:textSize="45sp" />
+            android:textSize="50sp" />
     </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/beeLogo"
+        android:layout_width="391dp"
+        android:layout_height="137dp"
+        android:layout_marginBottom="268dp"
+        android:contentDescription="Bee logo"
+        android:orientation="vertical"
+        android:scaleType="centerInside"
+        android:src="@drawable/bees"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/topContainer"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.beeproductive.android.BoldWordTextView
         android:id="@+id/boldTextView"
         android:layout_width="295dp"
         android:layout_height="36dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="428dp"
         android:text="Grow your hive and earn honey by staying screen-free — all with your friends!"
         android:textColor="#6b4701"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topContainer" />
-
-    <ImageView
-        android:id="@+id/beeLogo"
-        android:layout_width="371dp"
-        android:layout_height="116dp"
-        android:layout_marginBottom="12dp"
-        android:contentDescription="Bee logo"
-        android:orientation="vertical"
-        android:scaleType="centerInside"
-        android:src="@drawable/bees"
-        app:layout_constraintBottom_toTopOf="@+id/boldTextView2"
-        app:layout_constraintEnd_toEndOf="@id/topContainer"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="@id/topContainer" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.beeproductive.android.BoldWordTextView
         android:id="@+id/boldTextView2"
         android:layout_width="286dp"
         android:layout_height="46dp"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="240dp"
         android:text="Reduce screen time, boost focus, and build healthy habits— together!"
         android:textColor="#6b4701"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.451"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topContainer" />
 
