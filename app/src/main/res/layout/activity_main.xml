@@ -101,17 +101,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#f8c800"
-            android:text="SIGN UP"
+            android:text="Sign in with Google"
             android:textColor="#6b4701" />
-
-        <Button
-            android:id="@+id/logIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:backgroundTint="#f8c800"
-            android:text="LOG IN"
-            android:textColor="#6b4701" />
+        
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
