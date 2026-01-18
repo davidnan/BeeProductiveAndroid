@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="#fff4c7"
     android:padding="16dp"
+    android:id="@+id/login"
     tools:context=".LoginActivity">
 
     <!-- Title -->
