@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/honey_bg"
     android:layout_width="match_parent"
@@ -76,10 +76,4 @@
         android:layout_width="wrap_content"
         android:layout_height="10dp" />
     <!-- Bottom Navigation -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        app:menu="@menu/bottom_nav_menu"
-        android:layout_width="388dp"
-        android:layout_height="wrap_content"
-        android:background="@color/brown2" />
 </LinearLayout>
