@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BeeProductive</string>
+
+    <string name="default_web_client_id">
+        104254373675-u7cps8jq9840ccd0egltc510r5g8l1mb.apps.googleusercontent.com
+    </string>
 </resources>
