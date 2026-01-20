@@ -2,23 +2,17 @@ package com.beeproductive.android;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
+import androidx.navigation.fragment.NavHostFragment;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private TextView welcomeText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,35 +20,45 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         mAuth = FirebaseAuth.getInstance();
-        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
-        NavController navController = Navigation.findNavController(this, R.id.navHost);
 
-        // Let NavigationUI handle all fragment menu items automatically
-        NavigationUI.setupWithNavController(bottomNav, navController);
-
-        // Handle MenuActivity separately
-        bottomNav.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.menu) {
-                startActivity(new Intent(this, MenuActivity.class));
-                return true;
-            } else {
-                // Let NavController handle fragments
-                return NavigationUI.onNavDestinationSelected(item, navController);
-            }
-        });
-
-
-        // Get current user
+        // Get current user first and check authentication
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            String displayName = currentUser.getDisplayName();
-            String email = currentUser.getEmail();
-            welcomeText.setText("Welcome, " + (displayName != null ? displayName : email) + "!");
-        } else {
+        if (currentUser == null) {
             // If no user is signed in, redirect to MainActivity
             navigateToMain();
             return;
         }
+
+        // Setup bottom navigation
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+
+        // Get NavController from NavHostFragment
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.navHost);
+        if (navHostFragment == null) {
+            return;
+        }
+        NavController navController = navHostFragment.getNavController();
+
+        // Use NavigationUI to handle all navigation automatically
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.menu) {
+                navController.navigate(R.id.menu);
+                return true;
+            } else if (itemId == R.id.homeFragment) {
+                navController.navigate(R.id.homeFragment);
+                return true;
+            } else if (itemId == R.id.notificationsFragment) {
+                navController.navigate(R.id.notificationsFragment);
+                return true;
+            }
+            return false;
+        });
+
+        // Set home as the default selected item
+        bottomNav.setSelectedItemId(R.id.homeFragment);
     }
 
     private void signOut() {

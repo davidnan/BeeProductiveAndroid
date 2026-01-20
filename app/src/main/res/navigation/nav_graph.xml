@@ -13,4 +13,9 @@
         android:id="@+id/notificationsFragment"
         android:name="com.beeproductive.android.NotificationsFragment"
         android:label="Notifications" />
+
+    <fragment
+        android:id="@+id/menu"
+        android:name="com.beeproductive.android.MenuFragment"
+        android:label="Menu" />
 </navigation>
