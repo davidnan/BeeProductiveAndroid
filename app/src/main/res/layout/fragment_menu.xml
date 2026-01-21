@@ -1,0 +1,102 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/honey_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="32dp"
+    >
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="50dp" />
+    <TextView
+        android:layout_width="252dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/libre_baskerville_bold"
+        android:padding="16dp"
+        android:text="Challenges"
+        android:textColor="@color/brown"
+        android:textSize="30sp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/brown" />
+
+    <TextView
+        android:layout_width="302dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/libre_baskerville_regular"
+        android:padding="16dp"
+        android:text="Personal goals"
+        android:textColor="@color/brown"
+        android:textSize="24sp"
+        />
+
+    <TextView
+        android:layout_width="335dp"
+        android:layout_height="70dp"
+        android:padding="16dp"
+        android:text="Group challenges"
+        android:textColor="@color/brown"
+        android:textSize="24sp"
+        android:fontFamily="@font/libre_baskerville_regular"
+        />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="45dp" />
+
+    <TextView
+        android:text="Leader Board"
+        android:textSize="30sp"
+        android:textColor="@color/brown"
+        android:padding="16dp"
+        android:layout_height="70dp"
+        android:layout_width="200dp"
+        android:fontFamily="@font/libre_baskerville_bold"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/brown" />
+    <TextView
+        android:text="Top users"
+        android:textSize="24sp"
+        android:textColor="@color/brown"
+        android:padding="16dp"
+        android:layout_height="70dp"
+        android:layout_width="200dp"
+        android:fontFamily="@font/libre_baskerville_regular"
+        />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="45dp" />
+
+    <TextView
+        android:layout_width="238dp"
+        android:layout_height="80dp"
+        android:fontFamily="@font/libre_baskerville_bold"
+        android:padding="16dp"
+        android:text="My Account"
+        android:textColor="@color/brown"
+        android:textSize="30sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/brown" />
+    <TextView
+        android:text="Profile info"
+        android:textSize="24sp"
+        android:textColor="@color/brown"
+        android:padding="16dp"
+        android:layout_height="70dp"
+        android:layout_width="200dp"
+        android:fontFamily="@font/libre_baskerville_regular"
+        />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="45dp" />
+</LinearLayout>

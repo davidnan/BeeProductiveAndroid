@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/honey_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo"
+        android:contentDescription="Logo" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="40dp" />
+    <TextView
+        android:id="@+id/welcomeText"
+        android:fontFamily="@font/libre_baskerville_bold"
+        android:text="Welcome back, Max!"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:textColor="@color/brown"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="10dp" />
+    <TextView
+        android:id="@+id/subText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/libre_baskerville_regular"
+        android:gravity="center"
+        android:text="Your hive grew by X bees yesterday — great job!"
+        android:textColor="@color/brown2"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="250dp" />
+
+
+    <!-- Footer text -->
+    <Button
+        android:id="@+id/makeHoneyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/honey_yellow"
+        android:padding="16dp"
+        android:text="MAKE MORE HONEY"
+        android:textColor="@color/brown" />
+
+    <TextView
+        android:text="Your hive is growing — every minute offline counts"
+        android:textSize="17sp"
+        android:fontFamily="@font/libre_baskerville_regular"
+        android:textColor="@color/brown3"
+        android:gravity="center"
+        android:layout_marginBottom="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="10dp" />
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>
