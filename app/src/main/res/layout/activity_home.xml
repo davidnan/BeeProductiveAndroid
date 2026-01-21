@@ -18,15 +18,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- Bottom Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:minHeight="64dp"
             android:background="@color/brown2"
+
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+
+            app:labelVisibilityMode="unlabeled"
+            app:itemIconSize="28dp"
+            app:itemIconTint="@color/white"
+            app:itemHorizontalTranslationEnabled="false"
+
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_nav_menu" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:menu="@menu/bottom_nav_menu"
+            android:fitsSystemWindows="false"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

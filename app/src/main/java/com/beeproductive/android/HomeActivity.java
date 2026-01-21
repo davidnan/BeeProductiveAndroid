@@ -50,8 +50,8 @@ public class HomeActivity extends AppCompatActivity {
             } else if (itemId == R.id.homeFragment) {
                 navController.navigate(R.id.homeFragment);
                 return true;
-            } else if (itemId == R.id.notificationsFragment) {
-                navController.navigate(R.id.notificationsFragment);
+            } else if (itemId == R.id.profileFragment) {
+                navController.navigate(R.id.profileFragment);
                 return true;
             }
             return false;

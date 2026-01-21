@@ -18,4 +18,9 @@
         android:id="@+id/menu"
         android:name="com.beeproductive.android.MenuFragment"
         android:label="Menu" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.beeproductive.android.ProfileFragment"
+        android:label="Profile" />
 </navigation>

@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     android:padding="32dp"
     >
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="50dp" />
+
     <TextView
+        android:layout_marginTop="100dp"
         android:layout_width="252dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/libre_baskerville_bold"
@@ -21,7 +20,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:background="@color/brown" />
 
     <TextView
@@ -44,59 +43,31 @@
         android:fontFamily="@font/libre_baskerville_regular"
         />
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="45dp" />
 
     <TextView
-        android:text="Leader Board"
-        android:textSize="30sp"
-        android:textColor="@color/brown"
-        android:padding="16dp"
-        android:layout_height="70dp"
-        android:layout_width="200dp"
-        android:fontFamily="@font/libre_baskerville_bold"
-        />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@color/brown" />
-    <TextView
-        android:text="Top users"
-        android:textSize="24sp"
-        android:textColor="@color/brown"
-        android:padding="16dp"
-        android:layout_height="70dp"
-        android:layout_width="200dp"
-        android:fontFamily="@font/libre_baskerville_regular"
-        />
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="45dp" />
-
-    <TextView
-        android:layout_width="238dp"
-        android:layout_height="80dp"
+        android:layout_marginTop="45dp"
+        android:layout_width="356dp"
+        android:layout_height="85dp"
         android:fontFamily="@font/libre_baskerville_bold"
         android:padding="16dp"
-        android:text="My Account"
+        android:text="My Groups"
         android:textColor="@color/brown"
         android:textSize="30sp" />
-
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:background="@color/brown" />
     <TextView
-        android:text="Profile info"
+        android:text="Group stuff"
         android:textSize="24sp"
         android:textColor="@color/brown"
         android:padding="16dp"
         android:layout_height="70dp"
         android:layout_width="200dp"
         android:fontFamily="@font/libre_baskerville_regular"
+
         />
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="45dp" />
+
+
+
 </LinearLayout>
