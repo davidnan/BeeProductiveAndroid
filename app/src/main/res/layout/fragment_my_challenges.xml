@@ -9,7 +9,6 @@
     <include layout="@layout/back_arrow" />
 
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMyChallenges"
         android:layout_width="match_parent"

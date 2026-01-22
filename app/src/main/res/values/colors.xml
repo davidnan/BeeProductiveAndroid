@@ -8,5 +8,8 @@
     <color name="brown3">#997d47</color>
     <color name="honey_button">#FFC800</color>
     <color name="honey">#fdd673</color>
+    <color name="gray_enrolled">#CCCCCC</color>
+    <color name="green_completed">#4CAF50</color>
+    <color name="red_failed">#F44336</color>
 
 </resources>

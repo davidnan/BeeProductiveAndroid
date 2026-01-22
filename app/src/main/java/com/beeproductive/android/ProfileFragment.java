@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.beeproductive.android.utils.UsageStatsPermissionHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -21,6 +22,7 @@ public class ProfileFragment extends Fragment {
     private static final String TAG = "ProfileFragment";
 
     private FirebaseAuth mAuth;
+    private Button btnRequestPermission;
 
     @Nullable
     @Override
@@ -37,6 +39,7 @@ public class ProfileFragment extends Fragment {
         TextView streakTv = root.findViewById(R.id.streakCount);
         TextView groupsTv = root.findViewById(R.id.groupsCount);
         TextView logoutBtn = root.findViewById(R.id.logoutBtn);
+        btnRequestPermission = root.findViewById(R.id.btnRequestPermission);
 
         if (user != null) {
             String name = user.getDisplayName() == null ? "" : user.getDisplayName();
@@ -54,6 +57,8 @@ public class ProfileFragment extends Fragment {
         streakTv.setText(streakTv.getText() + " " + 0);
         groupsTv.setText(groupsTv.getText() + " " + 0);
 
+        // Setup permission button
+        checkUsageStatsPermission();
 
         logoutBtn.setOnClickListener(v -> {
             try {
@@ -71,5 +76,37 @@ public class ProfileFragment extends Fragment {
 
 
         return root;
+    }
+
+    private void checkUsageStatsPermission() {
+        if (!UsageStatsPermissionHelper.hasUsageStatsPermission(requireContext())) {
+            // Show permission button
+            btnRequestPermission.setVisibility(View.VISIBLE);
+
+            // Set click listener to open settings
+            btnRequestPermission.setOnClickListener(v -> {
+                Intent intent = UsageStatsPermissionHelper.getUsageStatsSettingsIntent();
+                startActivity(intent);
+                Toast.makeText(requireContext(),
+                        "Please enable Usage Access for BeeProductive",
+                        Toast.LENGTH_LONG).show();
+            });
+        } else {
+            // Hide button if permission already granted
+            btnRequestPermission.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Recheck permission when user returns from settings
+        if (btnRequestPermission != null) {
+            if (UsageStatsPermissionHelper.hasUsageStatsPermission(requireContext())) {
+                btnRequestPermission.setVisibility(View.GONE);
+            } else {
+                btnRequestPermission.setVisibility(View.VISIBLE);
+            }
+        }
     }
 }

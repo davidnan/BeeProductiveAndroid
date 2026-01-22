@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     card:cardCornerRadius="8dp"
     card:cardElevation="4dp"
+    card:cardBackgroundColor="@color/honey_bg"
     android:layout_marginBottom="12dp"
     android:foreground="?selectableItemBackground">
 
@@ -32,6 +33,17 @@
             android:textColor="@color/brown"/>
 
         <TextView
+            android:id="@+id/tvChallengeDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Challenge description"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/brown3"
+            android:textSize="14sp"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+
+        <TextView
             android:id="@+id/tvChallengeUsers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,11 +51,31 @@
             android:layout_marginTop="4dp"
             android:textColor="@color/brown"/>
 
+        <TextView
+            android:id="@+id/tvChallengeSpecificInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/brown2"
+            android:textStyle="italic"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvChallengeDates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/brown3"
+            android:textSize="12sp"
+            android:fontFamily="@font/libre_baskerville_regular"
+            android:visibility="gone"/>
+
         <Button
-            android:id="@+id/btnDetails"
+            android:id="@+id/btnJoinChallenge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Details"
+            android:text="Join"
             android:layout_gravity="end"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/honey_button"
