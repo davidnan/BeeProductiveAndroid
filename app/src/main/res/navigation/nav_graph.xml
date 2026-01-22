@@ -9,10 +9,6 @@
         android:name="com.beeproductive.android.HomeFragment"
         android:label="Home" />
 
-    <fragment
-        android:id="@+id/notificationsFragment"
-        android:name="com.beeproductive.android.NotificationsFragment"
-        android:label="Notifications" />
 
     <fragment
         android:id="@+id/menu"
@@ -23,4 +19,47 @@
         android:id="@+id/profileFragment"
         android:name="com.beeproductive.android.ProfileFragment"
         android:label="Profile" />
+
+    <!-- Create Group screen -->
+    <fragment
+        android:id="@+id/createGroupFragment"
+        android:name="com.beeproductive.android.CreateGroupFragment"
+        android:label="Create Group" />
+
+    <!-- Individual Group screen -->
+    <fragment
+        android:id="@+id/groupFragment"
+        android:name="com.beeproductive.android.GroupFragment"
+        android:label="Group" />
+
+    <!-- Join Group screen -->
+    <fragment
+        android:id="@+id/joinGroupFragment"
+        android:name="com.beeproductive.android.JoinGroupFragment"
+        android:label="Join Group" />
+
+    <!-- My Groups screen -->
+    <fragment
+        android:id="@+id/myGroupsFragment"
+        android:name="com.beeproductive.android.MyGroupsFragment"
+        android:label="My Groups" />
+
+    <!-- All Challenges screen -->
+    <fragment
+        android:id="@+id/allChallengesFragment"
+        android:name="com.beeproductive.android.AllChallengesFragment"
+        android:label="All Challenges" />
+
+    <!-- My Challenges screen -->
+    <fragment
+        android:id="@+id/myChallengesFragment"
+        android:name="com.beeproductive.android.MyChallengesFragment"
+        android:label="My Challenges" />
+
+    <!-- Challenge detail screen -->
+    <fragment
+        android:id="@+id/challengeDetailFragment"
+        android:name="com.beeproductive.android.ChallengeDetailFragment"
+        android:label="Challenge Detail" />
+
 </navigation>

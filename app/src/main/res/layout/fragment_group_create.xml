@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/honey_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <include layout="@layout/back_arrow" />
+
+        <!-- Spacer -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="48dp"/>
+
+        <!-- Centered title -->
+        <TextView
+            android:layout_marginTop="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create New"
+            android:textAlignment="center"
+            android:textColor="@color/brown"
+            android:textSize="36sp"
+            android:fontFamily="@font/libre_baskerville_bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Group"
+            android:textAlignment="center"
+            android:textColor="@color/brown"
+            android:textSize="36sp"
+            android:fontFamily="@font/libre_baskerville_bold"
+            android:layout_marginBottom="62dp"
+            />
+
+        <!-- Spacer -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="24dp"/>
+
+        <!-- Group name label -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GROUP NAME"
+            android:textAlignment="center"
+            android:textColor="@color/brown"
+            android:textSize="18sp"
+            android:letterSpacing="0.15"
+            android:fontFamily="@font/libre_baskerville_bold"/>
+
+        <!-- Spacer -->
+        <EditText
+            android:id="@+id/inputGroupName"
+            android:layout_width="281dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/bg_rounded_input"
+            android:fontFamily="@font/libre_baskerville_regular"
+            android:gravity="center"
+            android:hint="Enter group name"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:textColor="@color/brown"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
+
+        <!-- Button -->
+        <Button
+            android:id="@+id/btnCreateGroup"
+            android:layout_width="281dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="17dp"
+            android:backgroundTint="@color/honey_button"
+            android:fontFamily="@font/libre_baskerville_bold"
+            android:text="CREATE GROUP"
+            android:textAllCaps="true"
+            android:textColor="@color/brown" />
+
+    </LinearLayout>
+
+</ScrollView>

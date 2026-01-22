@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card:cardCornerRadius="8dp"
+    card:cardElevation="4dp"
+    android:layout_marginBottom="12dp"
+    android:foreground="?selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvChallengeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Challenge Name"
+            android:textSize="18sp"
+            android:textColor="@color/brown"
+            android:fontFamily="@font/libre_baskerville_bold"/>
+
+        <TextView
+            android:id="@+id/tvChallengeLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Level: hard"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/brown"/>
+
+        <TextView
+            android:id="@+id/tvChallengeUsers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="23 users"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/brown"/>
+
+        <Button
+            android:id="@+id/btnDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Details"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/honey_button"
+            android:textColor="@color/brown"
+            android:fontFamily="@font/libre_baskerville_bold"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -6,7 +6,7 @@
     <color name="brown">#6b4701</color>
     <color name="brown2">#985b10</color>
     <color name="brown3">#997d47</color>
-    <color name="honey_yellow">#FFC800</color>
-    <color name="honey_dark">#5C3A00</color>
+    <color name="honey_button">#FFC800</color>
+    <color name="honey">#fdd673</color>
 
 </resources>

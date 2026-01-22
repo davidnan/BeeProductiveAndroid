@@ -96,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="58dp"
             android:backgroundTint="#f8c800"
-            android:paddingStart="12dp"
+            android:paddingStart="16dp"
             android:paddingEnd="24dp"
             android:gravity="center_vertical"
             android:text="Sign in with Google"
