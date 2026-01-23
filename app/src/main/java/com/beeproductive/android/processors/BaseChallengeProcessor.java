@@ -1,0 +1,237 @@
+package com.beeproductive.android.processors;
+
+import android.app.AppOpsManager;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
+import android.content.Context;
+import android.os.Process;
+import android.util.Log;
+
+import com.beeproductive.android.models.Challenge;
+
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Base class for all challenge processors
+ * Handles common functionality like usage stats retrieval
+ */
+public abstract class BaseChallengeProcessor {
+
+    protected static final String TAG = "ChallengeProcessor";
+    protected final Context context;
+    protected final UsageStatsManager usageStatsManager;
+
+    public BaseChallengeProcessor(Context context) {
+        this.context = context;
+        this.usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
+    }
+
+    /**
+     * Check if the app has usage stats permission
+     */
+    protected boolean hasUsageStatsPermission() {
+        try {
+            AppOpsManager appOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+            int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                    Process.myUid(), context.getPackageName());
+            return mode == AppOpsManager.MODE_ALLOWED;
+        } catch (Exception e) {
+            Log.e(TAG, "Error checking usage stats permission", e);
+            return false;
+        }
+    }
+
+    /**
+     * Process a challenge and determine if status should change
+     * @param challenge The challenge to process
+     * @return New status (ENROLLED, COMPLETED, FAILED) or null if no change
+     */
+    public abstract String processChallenge(Challenge challenge);
+
+    /**
+     * Get total screen time for today in minutes
+     */
+    protected long getTodayScreenTimeMinutes() {
+        if (!hasUsageStatsPermission()) {
+            Log.w(TAG, "Usage stats permission not granted. Cannot retrieve screen time.");
+            return 0;
+        }
+
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            long startOfDay = calendar.getTimeInMillis();
+            long endOfDay = System.currentTimeMillis();
+
+            Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startOfDay, endOfDay);
+            if (stats == null) {
+                Log.w(TAG, "Usage stats returned null");
+                return 0;
+            }
+
+            long totalTimeMillis = 0;
+            for (UsageStats usageStat : stats.values()) {
+                totalTimeMillis += usageStat.getTotalTimeInForeground();
+            }
+
+            return totalTimeMillis / (1000 * 60); // Convert to minutes
+        } catch (Exception e) {
+            Log.e(TAG, "Error retrieving screen time", e);
+            return 0;
+        }
+    }
+
+    /**
+     * Get screen time for specific apps today in minutes
+     */
+    protected long getAppsScreenTimeMinutes(List<String> packageNames) {
+        if (!hasUsageStatsPermission()) {
+            Log.w(TAG, "Usage stats permission not granted. Cannot retrieve screen time.");
+            return 0;
+        }
+
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            long startOfDay = calendar.getTimeInMillis();
+            long endOfDay = System.currentTimeMillis();
+
+            Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startOfDay, endOfDay);
+            if (stats == null) {
+                Log.w(TAG, "Usage stats returned null");
+                return 0;
+            }
+
+            long totalTimeMillis = 0;
+            for (String packageName : packageNames) {
+                UsageStats usageStat = stats.get(packageName);
+                if (usageStat != null) {
+                    totalTimeMillis += usageStat.getTotalTimeInForeground();
+                }
+            }
+
+            return totalTimeMillis / (1000 * 60); // Convert to minutes
+        } catch (Exception e) {
+            Log.e(TAG, "Error retrieving screen time for apps", e);
+            return 0;
+        }
+    }
+
+    /**
+     * Get screen time for a date range in minutes
+     */
+    protected long getScreenTimeForPeriod(long startMillis, long endMillis) {
+        if (!hasUsageStatsPermission()) {
+            Log.w(TAG, "Usage stats permission not granted. Cannot retrieve screen time.");
+            return 0;
+        }
+
+        try {
+            Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startMillis, endMillis);
+            if (stats == null) {
+                Log.w(TAG, "Usage stats returned null");
+                return 0;
+            }
+
+            long totalTimeMillis = 0;
+            for (UsageStats usageStat : stats.values()) {
+                totalTimeMillis += usageStat.getTotalTimeInForeground();
+            }
+
+            return totalTimeMillis / (1000 * 60); // Convert to minutes
+        } catch (Exception e) {
+            Log.e(TAG, "Error retrieving screen time for period", e);
+            return 0;
+        }
+    }
+
+    /**
+     * Check if a specific app was used today
+     */
+    protected boolean wasAppUsedToday(String packageName) {
+        if (!hasUsageStatsPermission()) {
+            Log.w(TAG, "Usage stats permission not granted. Cannot check app usage.");
+            return false;
+        }
+
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            long startOfDay = calendar.getTimeInMillis();
+            long endOfDay = System.currentTimeMillis();
+
+            Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startOfDay, endOfDay);
+            if (stats == null) {
+                Log.w(TAG, "Usage stats returned null");
+                return false;
+            }
+
+            UsageStats usageStat = stats.get(packageName);
+            return usageStat != null && usageStat.getTotalTimeInForeground() > 0;
+        } catch (Exception e) {
+            Log.e(TAG, "Error checking if app was used: " + packageName, e);
+            return false;
+        }
+    }
+
+    /**
+     * Check if challenge period has ended
+     */
+    protected boolean hasChallengeEnded(Challenge challenge) {
+        if (challenge.getEndDate() == null || challenge.getEndDate().isEmpty()) {
+            return false;
+        }
+
+        try {
+            // Parse end date (format: YYYY-MM-DD)
+            String[] parts = challenge.getEndDate().split("-");
+            Calendar endDate = Calendar.getInstance();
+            endDate.set(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]) - 1, Integer.parseInt(parts[2]), 23, 59, 59);
+
+            return System.currentTimeMillis() > endDate.getTimeInMillis();
+        } catch (Exception e) {
+            Log.e(TAG, "Error parsing end date: " + challenge.getEndDate(), e);
+            return false;
+        }
+    }
+
+    /**
+     * Check if challenge period has started
+     */
+    protected boolean hasChallengeStarted(Challenge challenge) {
+        if (challenge.getStartDate() == null || challenge.getStartDate().isEmpty()) {
+            return true; // Assume started if no start date
+        }
+
+        try {
+            // Parse start date (format: YYYY-MM-DD)
+            String[] parts = challenge.getStartDate().split("-");
+            Calendar startDate = Calendar.getInstance();
+            startDate.set(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]) - 1, Integer.parseInt(parts[2]), 0, 0, 0);
+
+            return System.currentTimeMillis() >= startDate.getTimeInMillis();
+        } catch (Exception e) {
+            Log.e(TAG, "Error parsing start date: " + challenge.getStartDate(), e);
+            return true;
+        }
+    }
+
+    /**
+     * Log processor activity
+     */
+    protected void log(String message) {
+        Log.d(TAG, message);
+    }
+}

@@ -139,6 +139,39 @@
             android:textColor="@color/brown3"
             android:paddingStart="16dp"/>
 
+        <!-- Settings Section -->
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Settings:"
+            android:textSize="20sp"
+            android:fontFamily="@font/libre_baskerville_bold"
+            android:textColor="@color/brown2"
+            android:paddingTop="12dp" />
+        <View
+            android:layout_marginStart="16dp"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:background="@color/brown2" />
+
+        <!-- Usage Stats Permission Button -->
+        <Button
+            android:id="@+id/btnRequestPermission"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="📊 Grant Usage Stats Permission"
+            android:backgroundTint="@color/honey_button"
+            android:textColor="@color/brown"
+            android:fontFamily="@font/libre_baskerville_bold"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
 
 
 
