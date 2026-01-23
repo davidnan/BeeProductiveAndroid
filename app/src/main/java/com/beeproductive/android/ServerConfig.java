@@ -10,8 +10,8 @@ package com.beeproductive.android;
 public class ServerConfig {
 
     // Base URL for Android Emulator (maps to host machine's localhost:8080)
-    public static final String BASE_URL = "http://10.0.2.2:8080";
-//    public static final String BASE_URL = "http://localhost:8080";
+//    public static final String BASE_URL = "http://10.0.2.2:8080";
+    public static final String BASE_URL = "http://localhost:8080";
 
     // Alternative for physical device testing (uncomment and replace with your IP)
     // public static final String BASE_URL = "http://192.168.1.XXX:8080";
@@ -32,6 +32,8 @@ public class ServerConfig {
     public static final String ENDPOINT_GROUPS_GET = ENDPOINT_GROUPS; // + "/{groupId}";
     public static final String ENDPOINT_MY_GROUPS = ENDPOINT_GROUPS + "/my-groups";
     public static final String ENDPOINT_LEADERBOARD = ENDPOINT_GROUPS + "/leaderboard"; // + "/{groupCode}"
+
+    public static final String ENDPOINT_USER_INFO = BASE_URL + "/user/info";
 
     // Connection timeout settings (in milliseconds)
     public static final int CONNECT_TIMEOUT = 30000; // 30 seconds

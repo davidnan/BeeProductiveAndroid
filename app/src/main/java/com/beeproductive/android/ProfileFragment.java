@@ -14,9 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.beeproductive.android.utils.ApiHelper;
 import com.beeproductive.android.utils.UsageStatsPermissionHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONObject;
 
 public class ProfileFragment extends Fragment {
     private static final String TAG = "ProfileFragment";
@@ -50,9 +53,8 @@ public class ProfileFragment extends Fragment {
             emailTv.setText("");
         }
 
-        // Placeholders for app-specific stats -- adapt to your data model or load from Firestore/DB
-        beesTv.setText(beesTv.getText() + " " + 0);
-        groupsTv.setText(groupsTv.getText() + " " + 0);
+        // Fetch user info from API
+        fetchUserInfo(beesTv, groupsTv);
 
         // Setup permission button and status text
         if (permissionStatus != null) {
@@ -119,5 +121,52 @@ public class ProfileFragment extends Fragment {
                 permissionStatus.setText(has ? "Usage access: Granted" : "Usage access: Not granted");
             }
         }
+    }
+
+    private void fetchUserInfo(TextView beesTv, TextView groupsTv) {
+        ApiHelper.makeAuthenticatedGetRequest(requireContext(), ServerConfig.ENDPOINT_USER_INFO, new ApiHelper.ApiCallback() {
+            @Override
+            public void onSuccess(String responseBody) {
+                try {
+                    JSONObject userInfo = new JSONObject(responseBody);
+                    int numberOfBees = userInfo.optInt("numberOfBees", 0);
+                    int numberOfGroups = userInfo.optInt("numberOfGroups", 0);
+
+                    // Update UI on main thread with null checks
+                    if (getActivity() != null && isAdded()) {
+                        getActivity().runOnUiThread(() -> {
+                            if (isAdded() && beesTv != null && groupsTv != null) {
+                                beesTv.setText(beesTv.getText() + " " + numberOfBees + " 🐝");
+                                groupsTv.setText(groupsTv.getText() + " " + numberOfGroups);
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Failed to parse user info", e);
+                    if (getActivity() != null && isAdded()) {
+                        getActivity().runOnUiThread(() -> {
+                            if (isAdded() && beesTv != null && groupsTv != null) {
+                                beesTv.setText(beesTv.getText() + " " + 0 + " 🐝");
+                                groupsTv.setText(groupsTv.getText() + " " + 0);
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String errorMessage, int statusCode) {
+                Log.e(TAG, "Failed to fetch user info: " + errorMessage);
+                if (getActivity() != null && isAdded()) {
+                    getActivity().runOnUiThread(() -> {
+                        if (isAdded() && beesTv != null && groupsTv != null && getContext() != null) {
+                            beesTv.setText(beesTv.getText() + " " + 0 + " 🐝");
+                            groupsTv.setText(groupsTv.getText() + " " + 0);
+                            Toast.makeText(getContext(), "Failed to load user stats", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
     }
 }
