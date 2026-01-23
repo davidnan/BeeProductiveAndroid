@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
@@ -13,6 +11,7 @@
         android:id="@+id/backBtn"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_gravity="start|center_vertical"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@android:drawable/ic_menu_revert"
         android:contentDescription="Back"
@@ -21,15 +20,13 @@
 
     <TextView
         android:id="@+id/headerTitle"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text=""
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
         android:textColor="@color/brown"
-        android:fontFamily="@font/libre_baskerville_bold"/>
+        android:fontFamily="@font/libre_baskerville_bold" />
 
-
-</LinearLayout>
+</FrameLayout>

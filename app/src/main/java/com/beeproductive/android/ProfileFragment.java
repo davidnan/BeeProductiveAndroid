@@ -35,10 +35,9 @@ public class ProfileFragment extends Fragment {
         TextView nameTv = root.findViewById(R.id.profileName);
         TextView emailTv = root.findViewById(R.id.profileEmail);
         TextView beesTv = root.findViewById(R.id.beesCount);
-        TextView honeyTv = root.findViewById(R.id.honeyCount);
-        TextView streakTv = root.findViewById(R.id.streakCount);
         TextView groupsTv = root.findViewById(R.id.groupsCount);
         TextView logoutBtn = root.findViewById(R.id.logoutBtn);
+        TextView permissionStatus = root.findViewById(R.id.permissionStatus);
         btnRequestPermission = root.findViewById(R.id.btnRequestPermission);
 
         if (user != null) {
@@ -53,11 +52,13 @@ public class ProfileFragment extends Fragment {
 
         // Placeholders for app-specific stats -- adapt to your data model or load from Firestore/DB
         beesTv.setText(beesTv.getText() + " " + 0);
-        honeyTv.setText(honeyTv.getText() + " " + 0);
-        streakTv.setText(streakTv.getText() + " " + 0);
         groupsTv.setText(groupsTv.getText() + " " + 0);
 
-        // Setup permission button
+        // Setup permission button and status text
+        if (permissionStatus != null) {
+            boolean has = UsageStatsPermissionHelper.hasUsageStatsPermission(requireContext());
+            permissionStatus.setText(has ? "Usage access: Granted" : "Usage access: Not granted");
+        }
         checkUsageStatsPermission();
 
         logoutBtn.setOnClickListener(v -> {
@@ -106,6 +107,16 @@ public class ProfileFragment extends Fragment {
                 btnRequestPermission.setVisibility(View.GONE);
             } else {
                 btnRequestPermission.setVisibility(View.VISIBLE);
+            }
+        }
+
+        // Update status text if present
+        View root = getView();
+        if (root != null) {
+            TextView permissionStatus = root.findViewById(R.id.permissionStatus);
+            if (permissionStatus != null) {
+                boolean has = UsageStatsPermissionHelper.hasUsageStatsPermission(requireContext());
+                permissionStatus.setText(has ? "Usage access: Granted" : "Usage access: Not granted");
             }
         }
     }

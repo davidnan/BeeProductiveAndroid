@@ -105,30 +105,6 @@
 
         <TextView
             android:layout_marginStart="16dp"
-            android:id="@+id/honeyCount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Honey Collected: "
-            android:textSize="18sp"
-            android:paddingTop="8dp"
-            android:fontFamily="@font/libre_baskerville_regular"
-            android:textColor="@color/brown3"
-            android:paddingStart="16dp"/>
-
-        <TextView
-            android:layout_marginStart="16dp"
-            android:id="@+id/streakCount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hive Level:  "
-            android:textSize="18sp"
-            android:paddingTop="8dp"
-            android:fontFamily="@font/libre_baskerville_regular"
-            android:textColor="@color/brown3"
-            android:paddingStart="16dp"/>
-
-        <TextView
-            android:layout_marginStart="16dp"
             android:id="@+id/groupsCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -138,6 +114,8 @@
             android:fontFamily="@font/libre_baskerville_regular"
             android:textColor="@color/brown3"
             android:paddingStart="16dp"/>
+
+
 
         <!-- Settings Section -->
         <TextView
@@ -171,8 +149,18 @@
             android:padding="12dp"
             android:textSize="14sp"
             android:visibility="gone"/>
-
-
+        <!-- Permission status text -->
+        <TextView
+            android:layout_marginStart="16dp"
+            android:id="@+id/permissionStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Usage access: Unknown"
+            android:textSize="16sp"
+            android:paddingTop="12dp"
+            android:fontFamily="@font/libre_baskerville_regular"
+            android:textColor="@color/brown3"
+            android:paddingStart="16dp"/>
 
 
 

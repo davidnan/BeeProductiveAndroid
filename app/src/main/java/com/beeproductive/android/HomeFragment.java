@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.beeproductive.android.services.ChallengeProcessingService;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +29,25 @@ public class HomeFragment extends Fragment {
 
         // Start challenge processing service
         startChallengeProcessingService();
+
+        // Wire Make Honey button to navigate to All Challenges
+        Button makeHoneyBtn = view.findViewById(R.id.makeHoneyBtn);
+        if (makeHoneyBtn != null) {
+            makeHoneyBtn.setOnClickListener(v -> {
+                try {
+                    NavController nav = Navigation.findNavController(requireActivity(), R.id.navHost);
+                    nav.navigate(R.id.allChallengesFragment);
+                } catch (Exception e) {
+                    // Fallback: try to find nav controller from the view itself
+                    try {
+                        NavController nav = Navigation.findNavController(view);
+                        nav.navigate(R.id.allChallengesFragment);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+        }
 
         return view;
     }
