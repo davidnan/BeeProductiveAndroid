@@ -1,13 +1,16 @@
 package com.beeproductive.android.processors;
 
+import android.app.AppOpsManager;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
+import android.os.Process;
 import android.util.Log;
 
 import com.beeproductive.android.models.Challenge;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +30,21 @@ public abstract class BaseChallengeProcessor {
     }
 
     /**
+     * Check if the app has usage stats permission
+     */
+    protected boolean hasUsageStatsPermission() {
+        try {
+            AppOpsManager appOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+            int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                    Process.myUid(), context.getPackageName());
+            return mode == AppOpsManager.MODE_ALLOWED;
+        } catch (Exception e) {
+            Log.e(TAG, "Error checking usage stats permission", e);
+            return false;
+        }
+    }
+
+    /**
      * Process a challenge and determine if status should change
      * @param challenge The challenge to process
      * @return New status (ENROLLED, COMPLETED, FAILED) or null if no change
@@ -37,79 +55,135 @@ public abstract class BaseChallengeProcessor {
      * Get total screen time for today in minutes
      */
     protected long getTodayScreenTimeMinutes() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        long startOfDay = calendar.getTimeInMillis();
-        long endOfDay = System.currentTimeMillis();
-
-        Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startOfDay, endOfDay);
-
-        long totalTimeMillis = 0;
-        for (UsageStats usageStat : stats.values()) {
-            totalTimeMillis += usageStat.getTotalTimeInForeground();
+        if (!hasUsageStatsPermission()) {
+            Log.w(TAG, "Usage stats permission not granted. Cannot retrieve screen time.");
+            return 0;
         }
 
-        return totalTimeMillis / (1000 * 60); // Convert to minutes
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            long startOfDay = calendar.getTimeInMillis();
+            long endOfDay = System.currentTimeMillis();
+
+            Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startOfDay, endOfDay);
+            if (stats == null) {
+                Log.w(TAG, "Usage stats returned null");
+                return 0;
+            }
+
+            long totalTimeMillis = 0;
+            for (UsageStats usageStat : stats.values()) {
+                totalTimeMillis += usageStat.getTotalTimeInForeground();
+            }
+
+            return totalTimeMillis / (1000 * 60); // Convert to minutes
+        } catch (Exception e) {
+            Log.e(TAG, "Error retrieving screen time", e);
+            return 0;
+        }
     }
 
     /**
      * Get screen time for specific apps today in minutes
      */
     protected long getAppsScreenTimeMinutes(List<String> packageNames) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        long startOfDay = calendar.getTimeInMillis();
-        long endOfDay = System.currentTimeMillis();
-
-        Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startOfDay, endOfDay);
-
-        long totalTimeMillis = 0;
-        for (String packageName : packageNames) {
-            UsageStats usageStat = stats.get(packageName);
-            if (usageStat != null) {
-                totalTimeMillis += usageStat.getTotalTimeInForeground();
-            }
+        if (!hasUsageStatsPermission()) {
+            Log.w(TAG, "Usage stats permission not granted. Cannot retrieve screen time.");
+            return 0;
         }
 
-        return totalTimeMillis / (1000 * 60); // Convert to minutes
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            long startOfDay = calendar.getTimeInMillis();
+            long endOfDay = System.currentTimeMillis();
+
+            Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startOfDay, endOfDay);
+            if (stats == null) {
+                Log.w(TAG, "Usage stats returned null");
+                return 0;
+            }
+
+            long totalTimeMillis = 0;
+            for (String packageName : packageNames) {
+                UsageStats usageStat = stats.get(packageName);
+                if (usageStat != null) {
+                    totalTimeMillis += usageStat.getTotalTimeInForeground();
+                }
+            }
+
+            return totalTimeMillis / (1000 * 60); // Convert to minutes
+        } catch (Exception e) {
+            Log.e(TAG, "Error retrieving screen time for apps", e);
+            return 0;
+        }
     }
 
     /**
      * Get screen time for a date range in minutes
      */
     protected long getScreenTimeForPeriod(long startMillis, long endMillis) {
-        Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startMillis, endMillis);
-
-        long totalTimeMillis = 0;
-        for (UsageStats usageStat : stats.values()) {
-            totalTimeMillis += usageStat.getTotalTimeInForeground();
+        if (!hasUsageStatsPermission()) {
+            Log.w(TAG, "Usage stats permission not granted. Cannot retrieve screen time.");
+            return 0;
         }
 
-        return totalTimeMillis / (1000 * 60); // Convert to minutes
+        try {
+            Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startMillis, endMillis);
+            if (stats == null) {
+                Log.w(TAG, "Usage stats returned null");
+                return 0;
+            }
+
+            long totalTimeMillis = 0;
+            for (UsageStats usageStat : stats.values()) {
+                totalTimeMillis += usageStat.getTotalTimeInForeground();
+            }
+
+            return totalTimeMillis / (1000 * 60); // Convert to minutes
+        } catch (Exception e) {
+            Log.e(TAG, "Error retrieving screen time for period", e);
+            return 0;
+        }
     }
 
     /**
      * Check if a specific app was used today
      */
     protected boolean wasAppUsedToday(String packageName) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        long startOfDay = calendar.getTimeInMillis();
-        long endOfDay = System.currentTimeMillis();
+        if (!hasUsageStatsPermission()) {
+            Log.w(TAG, "Usage stats permission not granted. Cannot check app usage.");
+            return false;
+        }
 
-        Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startOfDay, endOfDay);
-        UsageStats usageStat = stats.get(packageName);
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            long startOfDay = calendar.getTimeInMillis();
+            long endOfDay = System.currentTimeMillis();
 
-        return usageStat != null && usageStat.getTotalTimeInForeground() > 0;
+            Map<String, UsageStats> stats = usageStatsManager.queryAndAggregateUsageStats(startOfDay, endOfDay);
+            if (stats == null) {
+                Log.w(TAG, "Usage stats returned null");
+                return false;
+            }
+
+            UsageStats usageStat = stats.get(packageName);
+            return usageStat != null && usageStat.getTotalTimeInForeground() > 0;
+        } catch (Exception e) {
+            Log.e(TAG, "Error checking if app was used: " + packageName, e);
+            return false;
+        }
     }
 
     /**
